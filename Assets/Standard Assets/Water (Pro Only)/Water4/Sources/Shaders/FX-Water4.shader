@@ -26,7 +26,6 @@ Properties {
 	
 	_Foam ("Foam (intensity, cutoff)", Vector) = (0.1, 0.375, 0.0, 0.0)
 	
-	_GerstnerIntensity("Per vertex displacement", Float) = 1.0
 	_GAmplitude ("Wave Amplitude", Vector) = (0.3 ,0.35, 0.25, 0.25)
 	_GFrequency ("Wave Frequency", Vector) = (1.3, 1.35, 1.25, 1.25)
 	_GSteepness ("Wave Steepness", Vector) = (1.0, 1.0, 1.0, 1.0)
@@ -112,12 +111,12 @@ CGINCLUDE
 	uniform float4 _Foam;
 	
 	// shortcuts
-	#define PER_PIXEL_DISPLACE _DistortParams.x
-	#define REALTIME_DISTORTION _DistortParams.y
+	#define OVERALL_BUMP_STRENGTH _DistortParams.x
+	#define REALTIME_TEXTURE_BUMP_STRENGTH _DistortParams.y
 	#define FRESNEL_POWER _DistortParams.z
 	#define VERTEX_WORLD_NORMAL i.normalInterpolator.xyz
+	#define DISTANCE_SCALE _InvFadeParemeter.z
 	#define FRESNEL_BIAS _DistortParams.w
-	#define NORMAL_DISPLACEMENT_PER_VERTEX _InvFadeParemeter.z
 	
 	//
 	// HQ VERSION
@@ -128,7 +127,8 @@ CGINCLUDE
 		v2f o;
 		
 		half3 worldSpaceVertex = mul(_Object2World,(v.vertex)).xyz;
-		half3 vtxForAni = (worldSpaceVertex).xzz * unity_Scale.w; 		
+				
+		half3 vtxForAni = (worldSpaceVertex).xzz;		
 
 		half3 nrml;
 		half3 offsets;
@@ -145,7 +145,7 @@ CGINCLUDE
 		v.vertex.xyz += offsets;		
 							
 		// one can also use worldSpaceVertex.xz here (speed!), albeit it'll end up a little skewed	
-		half2 tileableUv = mul(_Object2World,(v.vertex)).xz;
+		half2 tileableUv = mul(_Object2World,v.vertex).xz;	
 				
 		o.bumpCoords.xyzw = (tileableUv.xyxy + _Time.xxxx * _BumpDirection.xyzw) * _BumpTiling.xyzw;	
 
@@ -158,17 +158,17 @@ CGINCLUDE
 		o.normalInterpolator.xyz = nrml;
 		
 		o.viewInterpolator.w = saturate(offsets.y); 
-		o.normalInterpolator.w = 1;//GetDistanceFadeout(o.screenPos.w, DISTANCE_SCALE); 
+		o.normalInterpolator.w = GetDistanceFadeout(o.screenPos.w, DISTANCE_SCALE); 
 		
 		return o;
 	}
 
 	half4 frag( v2f i ) : COLOR
 	{				
-		half3 worldNormal = PerPixelNormal(_BumpMap, i.bumpCoords, VERTEX_WORLD_NORMAL, PER_PIXEL_DISPLACE);
+		half3 worldNormal = PerPixelNormal(_BumpMap, i.bumpCoords, VERTEX_WORLD_NORMAL, OVERALL_BUMP_STRENGTH);
 		half3 viewVector = normalize(i.viewInterpolator.xyz);
 
-		half4 distortOffset = half4(worldNormal.xz * REALTIME_DISTORTION * 10.0, 0, 0);
+		half4 distortOffset = half4(worldNormal.xz * REALTIME_TEXTURE_BUMP_STRENGTH * i.grabPassPos.z * i.normalInterpolator.w, 0, 0);
 		half4 screenWithOffset = i.screenPos + distortOffset;
 		half4 grabWithOffset = i.grabPassPos + distortOffset;
 		
@@ -231,7 +231,8 @@ CGINCLUDE
 		v2f_noGrab o;
 		
 		half3 worldSpaceVertex = mul(_Object2World,(v.vertex)).xyz;
-		half3 vtxForAni = (worldSpaceVertex).xzz * unity_Scale.w; 			
+				
+		half3 vtxForAni = (worldSpaceVertex).xzz;		
 
 		half3 nrml;
 		half3 offsets;
@@ -258,18 +259,18 @@ CGINCLUDE
 		o.screenPos = ComputeScreenPos(o.pos);
 		
 		o.normalInterpolator.xyz = nrml;
-		o.normalInterpolator.w = 1;//GetDistanceFadeout(o.screenPos.w, DISTANCE_SCALE); 
+		o.normalInterpolator.w = GetDistanceFadeout(o.screenPos.w, DISTANCE_SCALE); 
 		
 		return o;
 	}
 
 	half4 frag300( v2f_noGrab i ) : COLOR
 	{		
-		half3 worldNormal = PerPixelNormal(_BumpMap, i.bumpCoords, normalize(VERTEX_WORLD_NORMAL), PER_PIXEL_DISPLACE);
+		half3 worldNormal = PerPixelNormal(_BumpMap, i.bumpCoords, normalize(VERTEX_WORLD_NORMAL), OVERALL_BUMP_STRENGTH);
 
 		half3 viewVector = normalize(i.viewInterpolator.xyz);
 
-		half4 distortOffset = half4(worldNormal.xz * REALTIME_DISTORTION * 10.0, 0, 0);
+		half4 distortOffset = half4(worldNormal.xz * REALTIME_TEXTURE_BUMP_STRENGTH * i.normalInterpolator.w * i.screenPos.z, 0, 0);
 		half4 screenWithOffset = i.screenPos + distortOffset;
 		
 		#ifdef WATER_REFLECTIVE		
@@ -323,7 +324,7 @@ CGINCLUDE
 		
 		o.pos = mul(UNITY_MATRIX_MVP,  v.vertex);
 		
-		o.viewInterpolator.w = 1;//GetDistanceFadeout(ComputeScreenPos(o.pos).w, DISTANCE_SCALE); 
+		o.viewInterpolator.w = GetDistanceFadeout(ComputeScreenPos(o.pos).w, DISTANCE_SCALE); 
 		
 		return o;
 
@@ -331,7 +332,7 @@ CGINCLUDE
 
 	half4 frag200( v2f_simple i ) : COLOR
 	{		
-		half3 worldNormal = PerPixelNormal(_BumpMap, i.bumpCoords, half3(0,1,0), PER_PIXEL_DISPLACE);
+		half3 worldNormal = PerPixelNormal(_BumpMap, i.bumpCoords, half3(0,1,0), OVERALL_BUMP_STRENGTH * i.viewInterpolator.w);
 		half3 viewVector = normalize(i.viewInterpolator.xyz);
 
 		half3 reflectVector = normalize(reflect(viewVector, worldNormal));          
