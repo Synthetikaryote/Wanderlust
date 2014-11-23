@@ -1,0 +1,8 @@
+x, y, z = a(x1, y1, z1) + b(x2, y2, z2)
+
+x = ax1 + bx2
+y = ay1 + by2
+z = az1 + bz2
+
+a = (x - bx2) / x1
+b = (y - xy1) / (1 + x2y1)
