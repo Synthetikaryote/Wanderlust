@@ -1,0 +1,32 @@
+walk: 		0000 - 0035
+run: 		0037 - 0057
+stand:		0082 - 0127
+stand blink:	0129 - 0174
+idle:		0176 - 0326
+talk:		0328 - 0448
+deny:		0450 - 0540
+ready:		0542 - 0587
+ready blink:	0589 - 0634
+attack 1:		0636 - 0691
+attack 2:		0693 - 0768
+attack 3:		0770 - 0825
+attack 4:		0827 - 0872
+jump back:	0874 - 0929
+cast spell:	0931 - 0986
+hit 1:		0988 - 1008
+hit 2:		1010 - 1030
+death: 		1032 - 1085
+
+-----------------------------------------------
+Elf: 16490 tris
+Bow: 3794 tris
+Arrow container: 328 tris
+Arrow: 344 tris
+
+* Elf.fbx: the Elf will shoot with pre-animated arrow, the arrow is hidden underground - below her feet when it's not used, this may cause some problem with collision we think :p 
+
+So for your convenience, we've splitted the character and arrow into 2 animated fbx files and you can sync them together to have the same appearance as Elf.fbx:
+
+* Elf_noArrow: no arrow when shooting, you have to sync her with Animated_arrow.fbx, or put an Arrow.fbx into her hand using code.
+
+* Please set the Skinned Mesh Renderer Quality to 4 bones, cos if you don't the ponytail will look ugly :p
