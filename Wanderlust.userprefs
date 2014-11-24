@@ -1,9 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Uber.cs">
     <Files>
-      <File FileName="Assets\Scripts\Player.cs" Line="42" Column="48" />
-      <File FileName="Assets\Scripts\Uber.cs" Line="77" Column="1" />
+      <File FileName="Assets\Scripts\Player.cs" Line="65" Column="25" />
+      <File FileName="Assets\Scripts\Uber.cs" Line="330" Column="4" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

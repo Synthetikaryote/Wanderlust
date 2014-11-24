@@ -2,22 +2,26 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
-	float yaw = 0;
-	float pitch = 0;
+	float pitch = 0f;
 	float speed = 3.0f;
 	float tallness = 1.7f;
 	bool jumping = false;
 	public Vector3 p = Vector3.zero;
 	public Vector3 v = Vector3.zero;
 	GameObject pitchNode;
-
-	private Uber uber;
+	float targetZoom = 0;
+	float cameraMinZoom = 1.0f;
+	float cameraMaxZoom = 100.0f;
+	
+    private Uber uber;
 
 	// Use this for initialization
 	void Start () {
 		uber = GameObject.FindGameObjectWithTag("Uber").GetComponent<Uber>();
 		p = new Vector3(uber.xSize / 2.0f, float.MinValue, uber.zSize / 2.0f);
 		pitchNode = transform.FindChild("PitchNode").gameObject;
+		pitch = pitchNode.transform.localRotation.eulerAngles.x * Mathf.Deg2Rad;
+		targetZoom = -Camera.main.transform.localPosition.z;
 	}
 	
 	// Update is called once per frame
@@ -26,28 +30,49 @@ public class Player : MonoBehaviour {
 	}
 
 	public void CustomUpdate () {
-		if(Input.GetMouseButton(1)) {
-//			Screen.showCursor = false;
-//			Screen.lockCursor = true;
-//			Quaternion rollQuat = Quaternion.AngleAxis(0, Vector3.forward);
-//			yaw += 0.1f * Input.GetAxis("Mouse X") % (2 * Mathf.PI);
-//			float yawDeg = yaw / Mathf.PI * 180.0f;
-//			Quaternion yawQuat = Quaternion.AngleAxis(yawDeg, Vector3.up);
-//			pitch = Mathf.Clamp(pitch + -0.1f * Input.GetAxis("Mouse Y") % (2 * Mathf.PI), -Mathf.PI * 0.5f, Mathf.PI * 0.5f);
-//			float pitchDeg = pitch / Mathf.PI * 180.0f;
-//			Quaternion pitchQuat = Quaternion.AngleAxis(pitchDeg, Vector3.right);
-//			Camera.main.transform.rotation = yawQuat * rollQuat * pitchQuat;
+		if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) {
 			float yawDelta = 0.1f * Input.GetAxis("Mouse X") % (2 * Mathf.PI);
-			yaw += yawDelta;
 			float pitchDelta = -0.1f * Input.GetAxis("Mouse Y");
-			pitch = Mathf.Clamp(pitch + pitchDelta % (2 * Mathf.PI), -Mathf.PI * 0.5f, Mathf.PI * 0.5f);
-			pitchNode.transform.Rotate(new Vector3(pitchDelta / Mathf.PI * 180.0f, 0, 0));
-			transform.Rotate(new Vector3(0, yawDelta / Mathf.PI * 180.0f, 0));
-		} else {
+			pitch = Mathf.Clamp(pitch + pitchDelta % (2 * Mathf.PI), -Mathf.PI * 0.45f, Mathf.PI * 0.45f);
+			if (Input.GetMouseButton(1)) {
+				float pitchNodeYaw = pitchNode.transform.localRotation.eulerAngles.y;
+				// if there's yaw on the pitchNode, transfer it to the player
+				if (pitchNodeYaw != 0f) {
+					Quaternion tempQuat = new Quaternion();
+					tempQuat.eulerAngles = new Vector3(0, transform.localRotation.eulerAngles.y + pitchNodeYaw, 0);
+					transform.localRotation = tempQuat;
+					tempQuat = new Quaternion();
+					tempQuat.eulerAngles = new Vector3(pitch * Mathf.Rad2Deg, 0, 0);
+					pitchNode.transform.localRotation = tempQuat;
+				}
+				transform.Rotate(0, yawDelta * Mathf.Rad2Deg, 0);
+            } else if (Input.GetMouseButton(0)) {
+				pitchNode.transform.Rotate(0, yawDelta * Mathf.Rad2Deg, 0);
+			}
+			Quaternion rotation = new Quaternion();
+			float yaw = pitchNode.transform.localRotation.eulerAngles.y;
+			rotation.eulerAngles = new Vector3(pitch * Mathf.Rad2Deg, yaw, 0);
+			pitchNode.transform.localRotation = rotation;
+        } else {
 			Screen.showCursor = true;
 			Screen.lockCursor = false;
 		}
-		
+
+		float scrollDelta = Input.GetAxisRaw("Mouse ScrollWheel");
+		if (scrollDelta != 0) {
+			float zoomFactor = Mathf.Pow(100.0f, -scrollDelta);
+			targetZoom = Mathf.Clamp(targetZoom * zoomFactor, cameraMinZoom, cameraMaxZoom);
+        }
+		float currentZoom = -Camera.main.transform.localPosition.z;
+		if (currentZoom != targetZoom) {
+			float moveFactor = Mathf.Pow(0.985f, 1.0f / Time.deltaTime);
+			float zoomDelta = (targetZoom - currentZoom) * moveFactor;
+			currentZoom += zoomDelta;
+			Vector3 pos = Camera.main.transform.localPosition;
+			pos.z = -currentZoom;
+			Camera.main.transform.localPosition = pos;
+		}
+        
 		if (!jumping) {
 			v.x = 0.0f;
 			v.z = 0.0f;
@@ -60,6 +85,7 @@ public class Player : MonoBehaviour {
 			if(Input.GetKey("e"))
 				v.z -= 1.0f;
 			v.Normalize();
+			float yaw = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
 			v = new Vector3(v.z * Mathf.Sin(yaw) + v.x * Mathf.Cos(-yaw), v.y, v.z * Mathf.Cos(yaw) + v.x * Mathf.Sin(-yaw));
 			if (Input.GetKey(KeyCode.Space)) {
 				v.y = 5.0f * (Input.GetKey("left shift") ? 10.0f : 1.0f);
@@ -82,6 +108,6 @@ public class Player : MonoBehaviour {
 		} else {
 			p.y = floorHeight;
 		}
-		transform.position = new Vector3(p.x, p.y * (Input.GetKey("left shift") ? 200.0f : 1.0f), p.z);
+		transform.position = new Vector3(p.x, p.y + (Input.GetKey("left shift") ? 140.0f : 0.0f), p.z);
 	}
 }
