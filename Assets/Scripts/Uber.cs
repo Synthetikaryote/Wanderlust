@@ -21,36 +21,29 @@ Tasks:
 using UnityEngine;
 using System.Collections;
 
-public class World : MonoBehaviour {
+public class Uber : MonoBehaviour {
 	
 	public Material grassMaterial;
 	public Material waterMaterial;
-	
+
 	static bool alwaysGenerate = true;
-	static int xSize = 1024 * 4;
-	static int zSize = 1024 * 4;
-	static int xBlockSize = 64;
-	static int zBlockSize = 64;
-	static int xBlocks, zBlocks;
+	public int xSize = 1024 * 2;
+	public int zSize = 1024 * 2;
+	public int xBlockSize = 64;
+	public int zBlockSize = 64;
+	public int xBlocks, zBlocks;
 	private int[,] height;
-	static float heightFactor = 0.65f;
-	static float heightScale = 0.5f;
+	public float heightFactor = 0.65f;
+	public float heightScale = 0.5f;
 	
 	// fraction of the map that's covered by water
-	static float waterFactor = 0.35f;
+	public float waterFactor = 0.35f;
 	// set during createWater()
-	static int waterHeight = int.MinValue;
-	static float exactWaterHeight = 0.0f;
+	public int waterHeight = int.MinValue;
+	public float exactWaterHeight = 0.0f;
 	
 	private GameObject[,] terrain;
-	float yaw = 0;
-	float pitch = 0;
-	float speed = 3.0f;
-	float tallness = 0.7f;
-	bool jumping = false;
-	Vector3 p = Vector3.zero;
-	Vector3 v = Vector3.zero;
-	
+
 	Vector2 lastBlock = new Vector2(-1.0f, -1.0f);
 	Vector2 lastP = new Vector2(-1.0f, -1.0f);
 	float blockGenerationRadius = 1.0f;
@@ -70,20 +63,17 @@ public class World : MonoBehaviour {
 	
 	Vector3[] normalsTable = new Vector3[9];
 	
-	
-	
+	private Player player;
+
 	// Use this for initialization
 	void Start() {
+		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
 		for (int i = 0; i < 8; i++) {
 			normalsTable[i] = new Vector3(Mathf.Cos(Mathf.PI * 0.25f * i), heightScale, Mathf.Sin(Mathf.PI * 0.25f * i));
 			normalsTable[i].Normalize();
 		}
 		normalsTable[8] = new Vector3(0.0f, 1.0f, 0.0f);
-		
-		p = new Vector3(xSize / 2.0f, float.MinValue, zSize / 2.0f);
-		Camera.main.transform.rotation = Quaternion.identity;
-		Camera.main.camera.nearClipPlane = 0.1f;
-		Camera.main.camera.farClipPlane = 10000.0f;
 	}
 	
 	void generateHeights() {
@@ -289,7 +279,7 @@ public class World : MonoBehaviour {
 		return n;
 	}
 	
-	float exactTerrainHeight(float x, float z) {
+	public float exactTerrainHeight(float x, float z) {
 		int tileX = (int)x;
 		int tileZ = (int)z;
 		
@@ -330,7 +320,7 @@ public class World : MonoBehaviour {
 	
 	Vector2 nextBlock()
 	{
-		Vector2 curP = new Vector2(p.x / xBlockSize, p.z / zBlockSize);
+		Vector2 curP = new Vector2(player.p.x / xBlockSize, player.p.z / zBlockSize);
 		int blocksMoved = lastP.x > 0 ? Mathf.RoundToInt((lastP - curP).magnitude) : 0;
 		float maxRadius = sightRadius / xBlockSize; //new Vector2(Mathf.Max(curP.x, xBlocks-curP.x), Mathf.Max(curP.y, zBlocks-curP.y)).magnitude;
 
@@ -399,7 +389,7 @@ public class World : MonoBehaviour {
 					xSize = System.BitConverter.ToInt32(fileBuffer, 0);
 					zSize = System.BitConverter.ToInt32(fileBuffer, 4);
 					waterHeight = System.BitConverter.ToInt32(fileBuffer, 8);
-					p = new Vector3(xSize / 2.0f, float.MinValue, zSize / 2.0f);
+					player.p = new Vector3(xSize / 2.0f, float.MinValue, zSize / 2.0f);
 					loadX = 0;
 					loadZ = 0;
 					curOffset = 12;
@@ -599,58 +589,10 @@ public class World : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		float frameStart = Time.realtimeSinceStartup;
-		
-		if(Input.GetMouseButton(1)) {
-			Screen.showCursor = false;
-			Screen.lockCursor = true;
-			Quaternion rollQuat = Quaternion.AngleAxis(0, Vector3.forward);
-			yaw += 0.1f * Input.GetAxis("Mouse X") % (2 * Mathf.PI);
-			float yawDeg = yaw / Mathf.PI * 180.0f;
-			Quaternion yawQuat = Quaternion.AngleAxis(yawDeg, Vector3.up);
-			pitch = Mathf.Clamp(pitch + -0.1f * Input.GetAxis("Mouse Y") % (2 * Mathf.PI), -Mathf.PI * 0.5f, Mathf.PI * 0.5f);
-			float pitchDeg = pitch / Mathf.PI * 180.0f;
-			Quaternion pitchQuat = Quaternion.AngleAxis(pitchDeg, Vector3.right);
-			Camera.main.transform.rotation = yawQuat * rollQuat * pitchQuat;
-		} else {
-			Screen.showCursor = true;
-			Screen.lockCursor = false;
-		}
-		
-		if (!jumping) {
-			v.x = 0.0f;
-			v.z = 0.0f;
-			if(Input.GetKey(".") || Input.GetMouseButton(0) && Input.GetMouseButton(1))
-				v.z += 1.0f;
-			if(Input.GetKey("o"))
-				v.x -= 1.0f;
-			if(Input.GetKey("u"))
-				v.x += 1.0f;
-			if(Input.GetKey("e"))
-				v.z -= 1.0f;
-			v.Normalize();
-			v = new Vector3(v.z * Mathf.Sin(yaw) + v.x * Mathf.Cos(-yaw), v.y, v.z * Mathf.Cos(yaw) + v.x * Mathf.Sin(-yaw));
-			if (Input.GetKey(KeyCode.Space)) {
-				v.y = 5.0f * (Input.GetKey("left shift") ? 10.0f : 1.0f);
-				jumping = true;
-			}
-		}
-		v.y -= 15.0f * Time.deltaTime;
-		bool swimming = p.y < exactWaterHeight - 0.5f * tallness;
-		float xzScale = speed * (swimming? 0.5f : 1.0f) * (Input.GetKey("left shift") ? 200.0f : 1.0f) * Time.deltaTime;
-		p.x = Mathf.Clamp(p.x + v.x * xzScale, 0.0f, xSize-0.0001f);
-		p.z = Mathf.Clamp(p.z + v.z * xzScale, 0.0f, zSize-0.0001f);
-		p.y += v.y * Time.deltaTime;
-		float floorHeight = Mathf.Max(exactWaterHeight - 0.75f * tallness, exactTerrainHeight(p.x, p.z));
-		if (jumping) {
-			if (p.y < floorHeight) {
-				jumping = false;
-				p.y = floorHeight;
-				v.y = 0.0f;
-			}
-		} else {
-			p.y = floorHeight;
-		}
-		Camera.main.transform.position = new Vector3(p.x, p.y + tallness * (Input.GetKey("left shift") ? 200.0f : 1.0f), p.z);
+
+		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().CustomUpdate();
+
+
 		
 //		if (Time.realtimeSinceStartup - lastUnload > 1.0f) {
 //			lastUnload = Time.realtimeSinceStartup;
