@@ -70,15 +70,6 @@ public class Player : MonoBehaviour {
 			float zoomFactor = Mathf.Pow(100.0f, -scrollDelta);
 			targetZoom = Mathf.Clamp(targetZoom * zoomFactor, cameraMinZoom, cameraMaxZoom);
         }
-		float currentZoom = -Camera.main.transform.localPosition.z;
-		if (currentZoom != targetZoom) {
-			float moveFactor = Mathf.Pow(0.985f, 1.0f / Time.deltaTime);
-			float zoomDelta = (targetZoom - currentZoom) * moveFactor;
-			currentZoom += zoomDelta;
-			Vector3 pos = Camera.main.transform.localPosition;
-			pos.z = -currentZoom;
-			Camera.main.transform.localPosition = pos;
-		}
         
 		// movement
 		if (!jumping) {
@@ -136,6 +127,18 @@ public class Player : MonoBehaviour {
 
 		if (Camera.main.transform.position.y < uber.exactTerrainHeight(Camera.main.transform.position.x, Camera.main.transform.position.z)) {
 
+		}
+	}
+
+	void FixedUpdate() {
+		float currentZoom = -Camera.main.transform.localPosition.z;
+		if (currentZoom != targetZoom) {
+			float moveFactor = Mathf.Pow(0.985f, 1.0f / Time.deltaTime);
+			float zoomDelta = (targetZoom - currentZoom) * moveFactor;
+			currentZoom += zoomDelta;
+			Vector3 pos = Camera.main.transform.localPosition;
+			pos.z = -currentZoom;
+			Camera.main.transform.localPosition = pos;
 		}
 	}
 }
