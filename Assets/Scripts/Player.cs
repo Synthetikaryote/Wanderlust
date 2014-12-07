@@ -3,16 +3,20 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 	float pitch = 0f;
-	float speed = 3.0f;
+	public float speed = 8.0f;
 	float tallness = 1.7f;
 	bool jumping = false;
 	public Vector3 p = Vector3.zero;
 	public Vector3 v = Vector3.zero;
 	GameObject pitchNode;
 	float targetZoom = 0;
-	float cameraMinZoom = 1.0f;
-	float cameraMaxZoom = 100.0f;
-	
+	float cameraMinZoom = 0.9f;
+	float cameraMaxZoom = 150.0f;
+	public GameObject model;
+	private Animation modelAnimation;
+	public float jumpVelocity = 5.0f;
+	private float targetModelYaw = 0f;
+
     private Uber uber;
 
 	// Use this for initialization
@@ -22,6 +26,8 @@ public class Player : MonoBehaviour {
 		pitchNode = transform.FindChild("PitchNode").gameObject;
 		pitch = pitchNode.transform.localRotation.eulerAngles.x * Mathf.Deg2Rad;
 		targetZoom = -Camera.main.transform.localPosition.z;
+
+		modelAnimation = model.GetComponent<Animation>();
 	}
 	
 	// Update is called once per frame
@@ -58,6 +64,7 @@ public class Player : MonoBehaviour {
 			Screen.lockCursor = false;
 		}
 
+		// zoom
 		float scrollDelta = Input.GetAxisRaw("Mouse ScrollWheel");
 		if (scrollDelta != 0) {
 			float zoomFactor = Mathf.Pow(100.0f, -scrollDelta);
@@ -73,6 +80,7 @@ public class Player : MonoBehaviour {
 			Camera.main.transform.localPosition = pos;
 		}
         
+		// movement
 		if (!jumping) {
 			v.x = 0.0f;
 			v.z = 0.0f;
@@ -88,7 +96,7 @@ public class Player : MonoBehaviour {
 			float yaw = transform.rotation.eulerAngles.y * Mathf.Deg2Rad;
 			v = new Vector3(v.z * Mathf.Sin(yaw) + v.x * Mathf.Cos(-yaw), v.y, v.z * Mathf.Cos(yaw) + v.x * Mathf.Sin(-yaw));
 			if (Input.GetKey(KeyCode.Space)) {
-				v.y = 5.0f * (Input.GetKey("left shift") ? 10.0f : 1.0f);
+				v.y = jumpVelocity * (Input.GetKey("left shift") ? 10.0f : 1.0f);
 				jumping = true;
 			}
 		}
@@ -109,5 +117,25 @@ public class Player : MonoBehaviour {
 			p.y = floorHeight;
 		}
 		transform.position = new Vector3(p.x, p.y + (Input.GetKey("left shift") ? 140.0f : 0.0f), p.z);
+
+		// animation
+		if (v.x != 0 || v.z != 0) {
+			modelAnimation.Blend("run", 1.0f, 0.1f);
+			modelAnimation.Blend("idle", 0.0f, 0.1f);
+		}
+		else {
+			modelAnimation.Blend("idle", 1.0f, 0.1f);
+			modelAnimation.Blend("run", 0.0f, 0.1f);
+		}
+
+		// model rotation
+		Vector3 ahead = p + v;
+		ahead.y = p.y;
+		Vector3.Angle(model.transform.forward, ahead);
+		model.transform.LookAt(ahead);
+
+		if (Camera.main.transform.position.y < uber.exactTerrainHeight(Camera.main.transform.position.x, Camera.main.transform.position.z)) {
+
+		}
 	}
 }

@@ -48,7 +48,7 @@ public class Uber : MonoBehaviour {
 	Vector2 lastP = new Vector2(-1.0f, -1.0f);
 	float blockGenerationRadius = 1.0f;
 	bool allLoaded = false;
-	float sightRadius = 512;
+	float sightRadius = 768;
 	
 	float targetFramerate = 100.0f;
 	enum LoadState {CheckForMapFile, ReadMapFile, ReadMapData1, ReadMapData2, GenerateHeights, Erode, FindWaterHeight, CreateWaterMesh, WriteMapData1, WriteMapData2, WriteMapFile, InitializeTerrain, GenerateBlocks};
