@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\ActionFrame.cs" />
+     <Compile Include="Assets\Scripts\InputUI.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Uber.cs" />
      <None Include="Assets\Standard Assets\Projectors\Guidelines.txt" />

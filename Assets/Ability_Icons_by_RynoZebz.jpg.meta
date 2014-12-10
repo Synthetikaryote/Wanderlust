@@ -1,0 +1,740 @@
+fileFormatVersion: 2
+guid: 1a0d3c70b9008d041aa3a4aaac40a2b1
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: Ability_Icons_by_RynoZebz_0
+    21300002: Ability_Icons_by_RynoZebz_1
+    21300004: Ability_Icons_by_RynoZebz_2
+    21300006: Ability_Icons_by_RynoZebz_3
+    21300008: Ability_Icons_by_RynoZebz_4
+    21300010: Ability_Icons_by_RynoZebz_5
+    21300012: Ability_Icons_by_RynoZebz_6
+    21300014: Ability_Icons_by_RynoZebz_7
+    21300016: Ability_Icons_by_RynoZebz_8
+    21300018: Ability_Icons_by_RynoZebz_9
+    21300020: Ability_Icons_by_RynoZebz_10
+    21300022: Ability_Icons_by_RynoZebz_11
+    21300024: Ability_Icons_by_RynoZebz_12
+    21300026: Ability_Icons_by_RynoZebz_13
+    21300028: Ability_Icons_by_RynoZebz_14
+    21300030: Ability_Icons_by_RynoZebz_15
+    21300032: Ability_Icons_by_RynoZebz_16
+    21300034: Ability_Icons_by_RynoZebz_17
+    21300036: Ability_Icons_by_RynoZebz_18
+    21300038: Ability_Icons_by_RynoZebz_19
+    21300040: Ability_Icons_by_RynoZebz_20
+    21300042: Ability_Icons_by_RynoZebz_21
+    21300044: Ability_Icons_by_RynoZebz_22
+    21300046: Ability_Icons_by_RynoZebz_23
+    21300048: Ability_Icons_by_RynoZebz_24
+    21300050: Ability_Icons_by_RynoZebz_25
+    21300052: Ability_Icons_by_RynoZebz_26
+    21300054: Ability_Icons_by_RynoZebz_27
+    21300056: Ability_Icons_by_RynoZebz_28
+    21300058: Ability_Icons_by_RynoZebz_29
+    21300060: Ability_Icons_by_RynoZebz_30
+    21300062: Ability_Icons_by_RynoZebz_31
+    21300064: Ability_Icons_by_RynoZebz_32
+    21300066: Ability_Icons_by_RynoZebz_33
+    21300068: Ability_Icons_by_RynoZebz_34
+    21300070: Ability_Icons_by_RynoZebz_35
+    21300072: Ability_Icons_by_RynoZebz_36
+    21300074: Ability_Icons_by_RynoZebz_37
+    21300076: Ability_Icons_by_RynoZebz_38
+    21300078: Ability_Icons_by_RynoZebz_39
+    21300080: Ability_Icons_by_RynoZebz_40
+    21300082: Ability_Icons_by_RynoZebz_41
+    21300084: Ability_Icons_by_RynoZebz_42
+    21300086: Ability_Icons_by_RynoZebz_43
+    21300088: Ability_Icons_by_RynoZebz_44
+    21300090: Ability_Icons_by_RynoZebz_45
+    21300092: Ability_Icons_by_RynoZebz_46
+    21300094: Ability_Icons_by_RynoZebz_47
+    21300096: Ability_Icons_by_RynoZebz_48
+    21300098: Ability_Icons_by_RynoZebz_49
+    21300100: Ability_Icons_by_RynoZebz_50
+    21300102: Ability_Icons_by_RynoZebz_51
+    21300104: Ability_Icons_by_RynoZebz_52
+    21300106: Ability_Icons_by_RynoZebz_53
+    21300108: Ability_Icons_by_RynoZebz_54
+    21300110: Ability_Icons_by_RynoZebz_55
+    21300112: Ability_Icons_by_RynoZebz_56
+    21300114: Ability_Icons_by_RynoZebz_57
+    21300116: Ability_Icons_by_RynoZebz_58
+    21300118: Ability_Icons_by_RynoZebz_59
+    21300120: Ability_Icons_by_RynoZebz_60
+    21300122: Ability_Icons_by_RynoZebz_61
+    21300124: Ability_Icons_by_RynoZebz_62
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: Ability_Icons_by_RynoZebz_0
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_1
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_2
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_3
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_4
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_5
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_6
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_7
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_8
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 402
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_9
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_10
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_11
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_12
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_13
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_14
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_15
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_16
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_17
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 354
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_18
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_19
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_20
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_21
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_22
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_23
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_24
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_25
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_26
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 306
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_27
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_28
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_29
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_30
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_31
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_32
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_33
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_34
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_35
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 258
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_36
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_37
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_38
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_39
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_40
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_41
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_42
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_43
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_44
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 210
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_45
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_46
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_47
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_48
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_49
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_50
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_51
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_52
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_53
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 162
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_54
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_55
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_56
+      rect:
+        serializedVersion: 2
+        x: 111
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_57
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_58
+      rect:
+        serializedVersion: 2
+        x: 207
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_59
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_60
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_61
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: Ability_Icons_by_RynoZebz_62
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 114
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 

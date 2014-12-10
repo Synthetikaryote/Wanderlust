@@ -27,8 +27,8 @@ public class Uber : MonoBehaviour {
 	public Material waterMaterial;
 
 	static bool alwaysGenerate = false;
-	public int xSize = 1024 * 1;
-	public int zSize = 1024 * 1;
+	public int xSize = 1024 * 2;
+	public int zSize = 1024 * 2;
 	public int xBlockSize = 64;
 	public int zBlockSize = 64;
 	public int xBlocks, zBlocks;
@@ -63,11 +63,13 @@ public class Uber : MonoBehaviour {
 	
 	Vector3[] normalsTable = new Vector3[9];
 	
-	private Player player;
+	public Player player;
+	public InputUI inputUI;
 
 	// Use this for initialization
 	void Start() {
 		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+		inputUI = GameObject.FindGameObjectWithTag("ActionPanel").GetComponent<InputUI>();
 
 		for (int i = 0; i < 8; i++) {
 			normalsTable[i] = new Vector3(Mathf.Cos(Mathf.PI * 0.25f * i), heightScale, Mathf.Sin(Mathf.PI * 0.25f * i));
@@ -280,8 +282,8 @@ public class Uber : MonoBehaviour {
 	}
 	
 	public float exactTerrainHeight(float x, float z) {
-		int tileX = (int)x;
-		int tileZ = (int)z;
+		int tileX = Mathf.Clamp ((int)x, 0, xSize - 1);
+		int tileZ = Mathf.Clamp ((int)z, 0, zSize - 1);
 		
 		// early out if we don't have the data (yet)
 		if (height == null || !heightsLoaded)
@@ -561,10 +563,10 @@ public class Uber : MonoBehaviour {
 				case LoadState.GenerateBlocks:
 					Vector2 next = nextBlock();
 					if (!allLoaded) {
-//						float dist = (next * xBlockSize - new Vector2(p.x, p.z)).magnitude;
-						int d;
+//						float dist = (next * xBlockSize - new Vector2(player.transform.position.x, player.transform.position.z)).magnitude;
+						int d = 1;
 //						if (dist < 256)
-							d = 1;
+//							d = 1;
 //						else if (dist < 512)
 //							d = 2;
 //						else if (dist < 1024)
@@ -573,8 +575,10 @@ public class Uber : MonoBehaviour {
 //							d = 8;
 //						else if (dist < 4096)
 //							d = 16;
-//						else
+//						else if (dist < 8192)
 //							d = 32;
+//						else
+//							d = 64;
 						createMesh((int)next.x, (int)next.y, d);
 					}
 					done = true;

@@ -1,0 +1,20 @@
+visual effects and sounds make actions fun
+varied challenges should always be nearby
+    lots of easy
+    pockets of really hard (visually large)
+time scale
+    matches real life days, aligned to PST
+properties
+    the world is divided into lots
+    your character starts off in an auto-generated property that you own.  there will be a small house on it with some basic needs.  you are welcome to adapt it
+    you'll start with 2 property slots.  one is already filled by the one you start with.  you can go out into the world and claim an unclaimed lot.  claiming a lot takes 24 hours.  during claiming, you can build on it, but it doesn't make your inventory safe and nor can you spawn on it.  if a monster touches your lot, claiming is canceled and is unclaimable by you for 5 minutes, and 10 minutes by other players
+    lots being claimed should have a faint transparent white pulse
+    after 24 hours, the lot is yours and becomes one of your properties
+    if a monster destroys all of the structure on your property, it returns to the world and is unclaimable by you for 5 minutes, and by others for 10 minutes
+    as you "level up"?, you gain more property slots, to around 5 in total.
+    you can abandon properties you own by removing all structure from it, freeing one of your property slots
+death penalty
+    whenever you return to one of your properties, all your inventory is automatically made safe
+    whenever you're out on an excursion, new items you acquire are not safe
+    if you die, you respawn at your nearest property.  a tombstone appears where you died and any items that are not safe are in a chest by your tombstone.  this chest can only be looted by you and lasts 7 real life days
+    (if you have no properties, where do you spawn?  maybe you always have your starting property?  maybe there's an indestructible town center somewhere?)

@@ -10,8 +10,8 @@ public class Player : MonoBehaviour {
 	public Vector3 v = Vector3.zero;
 	GameObject pitchNode;
 	float targetZoom = 0;
-	float cameraMinZoom = 0.9f;
-	float cameraMaxZoom = 150.0f;
+	float cameraMinZoom = 0.7f;
+	float cameraMaxZoom = 300.0f;
 	public GameObject model;
 	private Animation modelAnimation;
 	public float jumpVelocity = 5.0f;
