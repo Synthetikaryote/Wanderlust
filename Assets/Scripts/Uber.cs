@@ -60,7 +60,7 @@ public class Uber : MonoBehaviour {
 	int loadX, loadZ;
 	int curDrop = 0;
 	bool heightsLoaded = false;
-
+	float loadStateTime = 0f;
 	Vector3[] normalsTable = new Vector3[9];
 	Vector3 lockedCursorPos = Vector3.zero;
 
@@ -74,6 +74,7 @@ public class Uber : MonoBehaviour {
 			normalsTable[i].Normalize();
 		}
 		normalsTable[8] = new Vector3(0.0f, 1.0f, 0.0f);
+		loadStateTime = Time.realtimeSinceStartup;
 	}
 
 	public void LockAndHideCursor() {
@@ -384,7 +385,8 @@ public class Uber : MonoBehaviour {
 	
 	void loadStuff(float dueTime) {
 		bool done = false;
-		while (!done && dueTime - Time.realtimeSinceStartup > 0.001f) {
+		var previousState = loadState;
+		while (!done && Time.realtimeSinceStartup < dueTime) {
 			switch (loadState) {
 				case LoadState.CheckForMapFile:
 					if (alwaysGenerate || !System.IO.File.Exists("map.txt"))
@@ -599,6 +601,12 @@ public class Uber : MonoBehaviour {
 				default:
 					done = true;
 					break;
+			}
+			if (loadState != previousState)
+			{
+				Debug.Log(previousState.ToString() + ": " + (Time.realtimeSinceStartup - loadStateTime) + " seconds");
+				loadStateTime = Time.realtimeSinceStartup;
+				previousState = loadState;
 			}
 		}
 	}
