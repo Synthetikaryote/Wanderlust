@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
 			rotation.eulerAngles = new Vector3(pitch * Mathf.Rad2Deg, yaw, 0);
 			pitchNode.transform.localRotation = rotation;
         } else {
-			Screen.showCursor = true;
+			Cursor.visible = true;
 			Screen.lockCursor = false;
 		}
 
