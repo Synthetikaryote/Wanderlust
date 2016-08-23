@@ -1,8 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2015
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.CSharp.Plugins", "Wanderlust.CSharp.Plugins.csproj", "{B1ECB395-6903-EF6C-CAD8-DA20EB5EE64B}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.CSharp", "Wanderlust.CSharp.csproj", "{8E6F5821-2DCB-AF88-69AF-DD78DFA56729}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Wanderlust.CSharp.Editor", "Wanderlust.CSharp.Editor.csproj", "{4D12CC7F-33FC-1493-DEDC-DEA46E9D03FF}"
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B1ECB395-6903-EF6C-CAD8-DA20EB5EE64B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1ECB395-6903-EF6C-CAD8-DA20EB5EE64B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1ECB395-6903-EF6C-CAD8-DA20EB5EE64B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1ECB395-6903-EF6C-CAD8-DA20EB5EE64B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E6F5821-2DCB-AF88-69AF-DD78DFA56729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E6F5821-2DCB-AF88-69AF-DD78DFA56729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E6F5821-2DCB-AF88-69AF-DD78DFA56729}.Release|Any CPU.ActiveCfg = Release|Any CPU

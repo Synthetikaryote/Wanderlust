@@ -22,7 +22,7 @@ using UnityEngine;
 using System.Collections;
 
 public class Uber : MonoBehaviour {
-	
+
 	public Material grassMaterial;
 	public Material waterMaterial;
 
@@ -35,13 +35,13 @@ public class Uber : MonoBehaviour {
 	private int[,] height;
 	public float heightFactor = 0.65f;
 	public float heightScale = 0.5f;
-	
+
 	// fraction of the map that's covered by water
 	public float waterFactor = 0.35f;
 	// set during createWater()
 	public int waterHeight = int.MinValue;
 	public float exactWaterHeight = 0.0f;
-	
+
 	private GameObject[,] terrain;
 
 	Vector2 lastBlock = new Vector2(-1.0f, -1.0f);
@@ -49,9 +49,9 @@ public class Uber : MonoBehaviour {
 	float blockGenerationRadius = 1.0f;
 	bool allLoaded = false;
 	float sightRadius = 768;
-	
+
 	float targetFramerate = 100.0f;
-	enum LoadState {CheckForMapFile, ReadMapFile, ReadMapData1, ReadMapData2, GenerateHeights, Erode, FindWaterHeight, CreateWaterMesh, WriteMapData1, WriteMapData2, WriteMapFile, InitializeTerrain, GenerateBlocks};
+	enum LoadState { CheckForMapFile, ReadMapFile, ReadMapData1, ReadMapData2, GenerateHeights, Erode, FindWaterHeight, CreateWaterMesh, WriteMapData1, WriteMapData2, WriteMapFile, InitializeTerrain, GenerateBlocks };
 	LoadState loadState = LoadState.CheckForMapFile;
 	System.IO.FileStream mapFile;
 	int fileBytes;
@@ -60,24 +60,37 @@ public class Uber : MonoBehaviour {
 	int loadX, loadZ;
 	int curDrop = 0;
 	bool heightsLoaded = false;
-	
+
 	Vector3[] normalsTable = new Vector3[9];
-	
+	Vector3 lockedCursorPos = Vector3.zero;
+
 	public Player player;
 	public InputUI inputUI;
 
 	// Use this for initialization
 	void Start() {
-		player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-		inputUI = GameObject.FindGameObjectWithTag("ActionPanel").GetComponent<InputUI>();
-
 		for (int i = 0; i < 8; i++) {
 			normalsTable[i] = new Vector3(Mathf.Cos(Mathf.PI * 0.25f * i), heightScale, Mathf.Sin(Mathf.PI * 0.25f * i));
 			normalsTable[i].Normalize();
 		}
 		normalsTable[8] = new Vector3(0.0f, 1.0f, 0.0f);
 	}
-	
+
+	public void LockAndHideCursor() {
+		if (Cursor.visible) {
+			Cursor.visible = false;
+			lockedCursorPos = MouseUtils.GetCursorPosition();
+			Cursor.lockState = CursorLockMode.Locked;
+		}
+	}
+	public void UnlockAndShowCursor() {
+		if (!Cursor.visible) {
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+			MouseUtils.SetCursorPosition((int)lockedCursorPos.x, (int)lockedCursorPos.y);
+		}
+	}
+
 	void generateHeights() {
 		height = new int[xSize + 1, zSize + 1];
 		for (int z = 0; z <= zSize; z++) {
@@ -596,8 +609,6 @@ public class Uber : MonoBehaviour {
 
 		GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().CustomUpdate();
 
-
-		
 //		if (Time.realtimeSinceStartup - lastUnload > 1.0f) {
 //			lastUnload = Time.realtimeSinceStartup;
 //			Resources.UnloadUnusedAssets();

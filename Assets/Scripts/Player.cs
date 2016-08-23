@@ -52,16 +52,17 @@ public class Player : MonoBehaviour {
 					pitchNode.transform.localRotation = tempQuat;
 				}
 				transform.Rotate(0, yawDelta * Mathf.Rad2Deg, 0);
-            } else if (Input.GetMouseButton(0)) {
+			} else if (Input.GetMouseButton(0)) {
 				pitchNode.transform.Rotate(0, yawDelta * Mathf.Rad2Deg, 0);
 			}
 			Quaternion rotation = new Quaternion();
 			float yaw = pitchNode.transform.localRotation.eulerAngles.y;
 			rotation.eulerAngles = new Vector3(pitch * Mathf.Rad2Deg, yaw, 0);
 			pitchNode.transform.localRotation = rotation;
-        } else {
-			Cursor.visible = true;
-			Screen.lockCursor = false;
+			uber.LockAndHideCursor();
+		}
+		else {
+			uber.UnlockAndShowCursor();
 		}
 
 		// zoom
