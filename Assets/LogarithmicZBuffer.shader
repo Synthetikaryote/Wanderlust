@@ -1,7 +1,5 @@
 ﻿// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
 
-// reference: http://forum.unity3d.com/threads/writing-depth-value-in-fragment-program.66153/
-// and: http://outerra.blogspot.ca/2009/08/logarithmic-z-buffer.html
 
 Shader "Custom/DepthWrite" {
 	Properties{
@@ -96,7 +94,7 @@ Shader "Custom/DepthWrite" {
 		float4 pos : SV_POSITION;
 		float2 pack0 : TEXCOORD0; // _MainTex
 		half3 worldNormal : TEXCOORD1;
-		float4 worldPos : TEXCOORD2; // DEPTH WRITE TWEAK (added .w component to encode eyeDepth)
+		float3 worldPos : TEXCOORD2;
 #if UNITY_SHOULD_SAMPLE_SH
 		half3 sh : TEXCOORD3; // SH
 #endif
@@ -113,7 +111,7 @@ Shader "Custom/DepthWrite" {
 		float4 pos : SV_POSITION;
 		float2 pack0 : TEXCOORD0; // _MainTex
 		half3 worldNormal : TEXCOORD1;
-		float4 worldPos : TEXCOORD2; // DEPTH WRITE TWEAK (added .w component to encode eyeDepth)
+		float3 worldPos : TEXCOORD2;
 		float4 lmap : TEXCOORD3;
 		SHADOW_COORDS(4)
 			UNITY_FOG_COORDS(5)
@@ -131,8 +129,9 @@ Shader "Custom/DepthWrite" {
 		v2f_surf o;
 		UNITY_INITIALIZE_OUTPUT(v2f_surf,o);
 		o.pos = mul(UNITY_MATRIX_MVP, v.vertex);
+		o.pos.z = log(1 * o.pos.w + 1) / log(1 * 100000 + 1) * o.pos.w;
 		o.pack0.xy = TRANSFORM_TEX(v.texcoord, _MainTex);
-		float4 worldPos = mul(unity_ObjectToWorld, v.vertex);
+		float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
 		fixed3 worldNormal = UnityObjectToWorldNormal(v.normal);
 #if !defined(LIGHTMAP_OFF) && defined(DIRLIGHTMAP_COMBINED)
 		fixed3 worldTangent = UnityObjectToWorldDir(v.tangent.xyz);
@@ -143,9 +142,7 @@ Shader "Custom/DepthWrite" {
 		o.tSpace1 = float4(worldTangent.y, worldBinormal.y, worldNormal.y, worldPos.y);
 		o.tSpace2 = float4(worldTangent.z, worldBinormal.z, worldNormal.z, worldPos.z);
 #endif
-		o.worldPos.xyz = worldPos;
-		float Fcoef = 2.0 / log2(10000 + 1.0);
-		o.worldPos.z = log2(max(1e-6, 1.0 + worldPos.w)) * Fcoef - 1.0;
+		o.worldPos = worldPos;
 		o.worldNormal = worldNormal;
 #ifndef DYNAMICLIGHTMAP_OFF
 		o.lmap.zw = v.texcoord2.xy * unity_DynamicLightmapST.xy + unity_DynamicLightmapST.zw;
@@ -180,7 +177,9 @@ Shader "Custom/DepthWrite" {
 	}
 
 	// fragment shader
-	void frag_surf(v2f_surf IN, out fixed4 outColor : SV_Target, out float outDepth : SV_Depth) { // DEPTH WRITE TWEAK
+	fixed4 frag_surf (v2f_surf IN) : SV_Target {
+	//void frag_surf(v2f_surf IN, out fixed4 outColor : SV_Target, out float outDepth : SV_Depth) { // DEPTH WRITE TWEAK
+																								  // prepare and unpack data
 		Input surfIN;
 		UNITY_INITIALIZE_OUTPUT(Input,surfIN);
 		surfIN.uv_MainTex = IN.pack0.xy;
@@ -257,9 +256,10 @@ Shader "Custom/DepthWrite" {
 		UNITY_APPLY_FOG(IN.fogCoord, c); // apply fog
 		UNITY_OPAQUE_ALPHA(c.a);
 
-		//return c;
-		outColor = c;
-		outDepth = IN.worldPos.z;
+		// DEPTH WRITE TWEAK
+		return c;
+		//outColor = c;
+		//outDepth = IN.worldPos.w; // (1.0 - IN.worldPos.w * _ZBufferParams.w) / (IN.worldPos.w * _ZBufferParams.z);
 	}
 
 	ENDCG
