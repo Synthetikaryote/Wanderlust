@@ -4,14 +4,14 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	float pitch = 0f;
 	public float speed = 8.0f;
-	float tallness = 1.7f;
+	float tallness = 1f;
 	bool jumping = false;
 	public Vector3 p = Vector3.zero;
 	public Vector3 v = Vector3.zero;
 	GameObject pitchNode;
 	float targetZoom = 0;
 	float cameraMinZoom = 0.7f;
-	float cameraMaxZoom = 9000.0f;
+	float cameraMaxZoom = 1000f;
 	public GameObject model;
 	private Animation modelAnimation;
 	public float jumpVelocity = 5.0f;

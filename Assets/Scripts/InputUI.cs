@@ -71,7 +71,7 @@ public class InputUI : MonoBehaviour {
 				}
 
 				// create a button frame
-				GameObject actionFrame = (GameObject)GameObject.Instantiate(actionFramePrefab);
+				GameObject actionFrame = (GameObject)Instantiate(actionFramePrefab);
 				actionFrame.transform.SetParent(transform);
 				RectTransform rect = ((RectTransform)actionFrame.transform);
 				float width = rect.sizeDelta.x * widthScale;

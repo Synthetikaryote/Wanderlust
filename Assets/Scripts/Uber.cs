@@ -27,8 +27,8 @@ public class Uber : MonoBehaviour {
 	public Material waterMaterial;
 
 	static bool alwaysGenerate = false;
-	public int xSize = 1024 * 4;
-	public int zSize = 1024 * 4;
+	public int xSize = 1024;
+	public int zSize = 1024;
 	public int xBlockSize = 64;
 	public int zBlockSize = 64;
 	public int xBlocks, zBlocks;
@@ -205,14 +205,16 @@ public class Uber : MonoBehaviour {
 		if (z+1 <= zSize && height[x,z+1] > cur) lower(x,z+1);
 		height[x,z]--;
 	}
-	
+
 	void createMesh(int xBlock, int zBlock, int d) {
-		GameObject curBlock = new GameObject(string.Format("block{0}_{1}", xBlock, zBlock));
-		curBlock.AddComponent<MeshFilter>();
-		curBlock.AddComponent<MeshRenderer>();
-		
-		Mesh curMesh = curBlock.GetComponent<MeshFilter>().mesh;
-		
+		GameObject block = new GameObject(string.Format("block{0}_{1}", xBlock, zBlock));
+		GameObject blockTerrain = new GameObject("terrain");
+		blockTerrain.transform.SetParent(block.transform);
+		blockTerrain.AddComponent<MeshFilter>();
+		blockTerrain.AddComponent<MeshRenderer>();
+
+		Mesh curMesh = blockTerrain.GetComponent<MeshFilter>().mesh;
+
 		// set the vertices, uvs, and normals
 		Vector3[] vertices = new Vector3[(xBlockSize / d + 1) * (zBlockSize / d + 1) * 9];
 		Vector3 vertexPosition;
@@ -225,15 +227,15 @@ public class Uber : MonoBehaviour {
 				vertexPosition = new Vector3(x, height[xBlock * xBlockSize + x, zBlock * zBlockSize + z] * heightScale, z);
 				uvPosition = new Vector2((float)x / xBlockSize, (float)z / zBlockSize);
 				for (int i = 0; i < 9; i++) {
-					vertices[(z/d*width+x/d)*9+i] = vertexPosition;
-					normals[(z/d*width+x/d)*9+i] = normalsTable[i];
-					uvs[(z/d*width+x/d)*9+i] = uvPosition;
+					vertices[(z / d * width + x / d) * 9 + i] = vertexPosition;
+					normals[(z / d * width + x / d) * 9 + i] = normalsTable[i];
+					uvs[(z / d * width + x / d) * 9 + i] = uvPosition;
 				}
 			}
 		}
 		curMesh.vertices = vertices;
-	    curMesh.uv = uvs;
-		
+		curMesh.uv = uvs;
+
 		// set the triangles
 		int[] triangles = new int[xBlockSize / d * zBlockSize / d * 6];
 		int index = 0;
@@ -242,47 +244,111 @@ public class Uber : MonoBehaviour {
 		for (int z = 0; z < zBlockSize; z += d) {
 			for (int x = 0; x < xBlockSize; x += d) {
 				h0 = height[xBlock * xBlockSize + x, zBlock * zBlockSize + z];
-				h1 = height[xBlock * xBlockSize + x+1, zBlock * zBlockSize + z];
-				h2 = height[xBlock * xBlockSize + x, zBlock * zBlockSize + z+1];
-				h3 = height[xBlock * xBlockSize + x+1, zBlock * zBlockSize + z+1];
+				h1 = height[xBlock * xBlockSize + x + 1, zBlock * zBlockSize + z];
+				h2 = height[xBlock * xBlockSize + x, zBlock * zBlockSize + z + 1];
+				h3 = height[xBlock * xBlockSize + x + 1, zBlock * zBlockSize + z + 1];
 				if (h0 == h3) {
 					n = GetNormalDirection(h0 - h1, h3 - h1);
-					triangles[index++] = (z/d*width+x/d)*9+n;
-					triangles[index++] = ((z/d+1)*width+x/d+1)*9+n;
-					triangles[index++] = (z/d*width+(x/d+1))*9+n;
-					
+					triangles[index++] = (z / d * width + x / d) * 9 + n;
+					triangles[index++] = ((z / d + 1) * width + x / d + 1) * 9 + n;
+					triangles[index++] = (z / d * width + (x / d + 1)) * 9 + n;
+
 					n = GetNormalDirection(h2 - h3, h2 - h0);
-					triangles[index++] = (z/d*width+x/d)*9+n;
-					triangles[index++] = ((z/d+1)*width+x/d)*9+n;
-					triangles[index++] = ((z/d+1)*width+(x/d+1))*9+n;
+					triangles[index++] = (z / d * width + x / d) * 9 + n;
+					triangles[index++] = ((z / d + 1) * width + x / d) * 9 + n;
+					triangles[index++] = ((z / d + 1) * width + (x / d + 1)) * 9 + n;
 				} else {
 					n = GetNormalDirection(h0 - h1, h2 - h0);
-					triangles[index++] = (z/d*width+x/d)*9+n;
-					triangles[index++] = ((z/d+1)*width+x/d)*9+n;
-					triangles[index++] = (z/d*width+(x/d+1))*9+n;
-					
+					triangles[index++] = (z / d * width + x / d) * 9 + n;
+					triangles[index++] = ((z / d + 1) * width + x / d) * 9 + n;
+					triangles[index++] = (z / d * width + (x / d + 1)) * 9 + n;
+
 					n = GetNormalDirection(h2 - h3, h3 - h1);
-					triangles[index++] = ((z/d+1)*width+x/d)*9+n;
-					triangles[index++] = ((z/d+1)*width+(x/d+1))*9+n;
-					triangles[index++] = (z/d*width+(x/d+1))*9+n;
+					triangles[index++] = ((z / d + 1) * width + x / d) * 9 + n;
+					triangles[index++] = ((z / d + 1) * width + (x / d + 1)) * 9 + n;
+					triangles[index++] = (z / d * width + (x / d + 1)) * 9 + n;
 				}
 			}
 		}
 		curMesh.triangles = triangles;
-		curBlock.GetComponent<Renderer>().sharedMaterial = grassMaterial;
-		curBlock.GetComponent<Renderer>().sharedMaterial.mainTextureScale = new Vector2(xBlockSize, zBlockSize);
+		blockTerrain.GetComponent<Renderer>().sharedMaterial = grassMaterial;
+		blockTerrain.GetComponent<Renderer>().sharedMaterial.mainTextureScale = new Vector2(xBlockSize, zBlockSize);
 		curMesh.normals = normals;
 		//curMesh.RecalculateNormals();
 		curMesh.RecalculateBounds();
 		curMesh.Optimize();
-		
+
 		// put the new mesh in its position
-		curBlock.transform.position = new Vector3(xBlock * xBlockSize, 0.0f, zBlock * zBlockSize);
-		
+		blockTerrain.transform.position = new Vector3(xBlock * xBlockSize, 0.0f, zBlock * zBlockSize);
+
+		//GameObject blockWater = new GameObject("water");
+		//blockWater.transform.SetParent(block.transform);
+		//blockWater.AddComponent<MeshFilter>();
+		//blockWater.AddComponent<MeshRenderer>();
+
+		//Mesh waterMesh = blockWater.GetComponent<MeshFilter>().mesh;
+
+		//blockWater.GetComponent<Renderer>().material = waterMaterial;
+		//blockWater.GetComponent<Renderer>().material.mainTextureScale = new Vector2(1, 1);
+
+		//Vector3[] waterVerts = new Vector3[(xBlockSize + 1) * (zBlockSize + 1)];
+		//Vector2[] waterUVs = new Vector2[(xBlockSize + 1) * (zBlockSize + 1)];
+		//int[] waterTris = new int[xBlockSize * zBlockSize * 6];
+		//int vertIndex = 0;
+		//int triIndex = 0;
+		//for (int z = 0; z <= zBlockSize; ++z)
+		//{
+		//	for (int x = 0; x <= xBlockSize; ++x)
+		//	{
+		//		waterVerts[vertIndex] = new Vector3(x, 0, z);
+		//		waterUVs[vertIndex] = new Vector2(x, z);
+		//		if (x < xBlockSize && z < zBlockSize)
+		//		{
+		//			waterTris[triIndex++] = vertIndex;
+		//			waterTris[triIndex++] = vertIndex + xBlockSize + 2;
+		//			waterTris[triIndex++] = vertIndex + 1;
+		//			waterTris[triIndex++] = vertIndex;
+		//			waterTris[triIndex++] = vertIndex + xBlockSize + 1;
+		//			waterTris[triIndex++] = vertIndex + xBlockSize + 2;
+		//		}
+		//		++vertIndex;
+		//	}
+		//}
+		//waterMesh.vertices = waterVerts;
+		//waterMesh.uv = waterUVs;
+		//waterMesh.triangles = waterTris;
+		//waterMesh.RecalculateNormals();
+		//waterMesh.RecalculateBounds();
+		//blockWater.transform.position = new Vector3(xBlock * xBlockSize, exactWaterHeight, zBlock * zBlockSize);
+
+		GameObject water = new GameObject("water");
+		water.transform.SetParent(block.transform);
+		water.AddComponent<MeshFilter>();
+		water.AddComponent<MeshRenderer>();
+		Mesh waterMesh = water.GetComponent<MeshFilter>().mesh;
+		water.GetComponent<Renderer>().material = waterMaterial;
+		water.GetComponent<Renderer>().material.mainTextureScale = new Vector2(xBlockSize, zBlockSize);
+		waterMesh.vertices = new Vector3[] {
+			new Vector3(0, 0, 0),
+			new Vector3(xBlockSize, 0, 0),
+			new Vector3(0, 0, zBlockSize),
+			new Vector3(xBlockSize, 0, zBlockSize)
+		};
+		waterMesh.uv = new Vector2[] {
+			new Vector2(0.0f, 0.0f),
+			new Vector2(1.0f, 0.0f),
+			new Vector2(0.0f, 1.0f),
+			new Vector2(1.0f, 1.0f)
+		};
+		waterMesh.triangles = new int[6] { 2, 1, 0, 3, 1, 2 };
+		waterMesh.RecalculateNormals();
+		waterMesh.RecalculateBounds();
+		water.transform.position = new Vector3(xBlock * xBlockSize, exactWaterHeight, zBlock * zBlockSize);
+
 		// save the block to the array
-		terrain[xBlock, zBlock] = curBlock;
+		terrain[xBlock, zBlock] = block;
 	}
-	
+
 	// returns an int in 0-8 as a reference to one of the 9 possible normals
 	int GetNormalDirection(int dx, int dz)
 	{
@@ -355,7 +421,6 @@ public class Uber : MonoBehaviour {
 					b.y >= 0.0f && b.y < zBlocks &&
 					terrain[(int)b.x, (int)b.y]) {
 						GameObject curBlock = terrain[(int)b.x, (int)b.y];
-						Destroy(curBlock.GetComponent<MeshFilter>().mesh);
 						Destroy(curBlock);
 						terrain[(int)b.x, (int)b.y] = null;
 					}
@@ -529,37 +594,38 @@ public class Uber : MonoBehaviour {
 					loadState = LoadState.CreateWaterMesh;
 					break;
 				case LoadState.CreateWaterMesh:
-					GameObject water = new GameObject();
-					water.AddComponent<MeshFilter>();
-					water.AddComponent<MeshRenderer>();
-					
-					Mesh waterMesh = water.GetComponent<MeshFilter>().mesh;
-					
-					water.GetComponent<Renderer>().material = waterMaterial;
-					water.GetComponent<Renderer>().material.mainTextureScale = new Vector2(xSize, zSize);
-					
-					Vector3[] vertices = new Vector3[4];
-					vertices[0] = new Vector3(0, 0, 0);
-					vertices[1] = new Vector3(xSize, 0, 0);
-					vertices[2] = new Vector3(0, 0, zSize);
-					vertices[3] = new Vector3(xSize, 0, zSize);
-					
-					Vector2[] uv = new Vector2[4];
-					uv[0] = new Vector2(0.0f, 0.0f);
-					uv[1] = new Vector2(1.0f, 0.0f);
-					uv[2] = new Vector2(0.0f, 1.0f);
-					uv[3] = new Vector2(1.0f, 1.0f);
-					
-					int[] triangles = new int[6] {2, 1, 0, 3, 1, 2};
-					
-					waterMesh.vertices = vertices;
-					waterMesh.uv = uv;
-					waterMesh.triangles = triangles;
-					waterMesh.RecalculateNormals();
-					waterMesh.RecalculateBounds();
-					
-					exactWaterHeight = (waterHeight + 0.2f) * heightScale;
-					water.transform.position = new Vector3(0, exactWaterHeight, 0);
+					exactWaterHeight = (waterHeight + 0.4f) * heightScale;
+
+					//GameObject water = new GameObject();
+					//water.AddComponent<MeshFilter>();
+					//water.AddComponent<MeshRenderer>();
+
+					//Mesh waterMesh = water.GetComponent<MeshFilter>().mesh;
+
+					//water.GetComponent<Renderer>().material = waterMaterial;
+					//water.GetComponent<Renderer>().material.mainTextureScale = new Vector2(xSize, zSize);
+
+					//Vector3[] vertices = new Vector3[4];
+					//vertices[0] = new Vector3(0, 0, 0);
+					//vertices[1] = new Vector3(xSize, 0, 0);
+					//vertices[2] = new Vector3(0, 0, zSize);
+					//vertices[3] = new Vector3(xSize, 0, zSize);
+
+					//Vector2[] uv = new Vector2[4];
+					//uv[0] = new Vector2(0.0f, 0.0f);
+					//uv[1] = new Vector2(1.0f, 0.0f);
+					//uv[2] = new Vector2(0.0f, 1.0f);
+					//uv[3] = new Vector2(1.0f, 1.0f);
+
+					//int[] triangles = new int[6] { 2, 1, 0, 3, 1, 2 };
+
+					//waterMesh.vertices = vertices;
+					//waterMesh.uv = uv;
+					//waterMesh.triangles = triangles;
+					//waterMesh.RecalculateNormals();
+					//waterMesh.RecalculateBounds();
+					//water.transform.position = new Vector3(0, exactWaterHeight, 0);
+
 					loadState = LoadState.InitializeTerrain;
 					break;
 				case LoadState.InitializeTerrain:
