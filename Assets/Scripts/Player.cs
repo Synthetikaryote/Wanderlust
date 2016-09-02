@@ -11,7 +11,7 @@ public class Player : MonoBehaviour {
 	GameObject pitchNode;
 	float targetZoom = 0;
 	float cameraMinZoom = 0.7f;
-	float cameraMaxZoom = 300.0f;
+	float cameraMaxZoom = 9000.0f;
 	public GameObject model;
 	private Animation modelAnimation;
 	public float jumpVelocity = 5.0f;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
 		targetZoom = -Camera.main.transform.localPosition.z;
 
 		modelAnimation = model.GetComponent<Animation>();
+		
 	}
 	
 	// Update is called once per frame
@@ -68,7 +69,7 @@ public class Player : MonoBehaviour {
 		// zoom
 		float scrollDelta = Input.GetAxisRaw("Mouse ScrollWheel");
 		if (scrollDelta != 0) {
-			float zoomFactor = Mathf.Pow(100.0f, -scrollDelta);
+			float zoomFactor = Mathf.Pow(10000.0f, -scrollDelta);
 			targetZoom = Mathf.Clamp(targetZoom * zoomFactor, cameraMinZoom, cameraMaxZoom);
         }
         
