@@ -23,7 +23,7 @@ public class Player : MonoBehaviour {
 	void Start () {
 		uber = GameObject.FindGameObjectWithTag("Uber").GetComponent<Uber>();
 		p = new Vector3(uber.xSize / 2.0f, float.MinValue, uber.zSize / 2.0f);
-		pitchNode = transform.FindChild("PitchNode").gameObject;
+		pitchNode = transform.Find("PitchNode").gameObject;
 		pitch = pitchNode.transform.localRotation.eulerAngles.x * Mathf.Deg2Rad;
 		targetZoom = -Camera.main.transform.localPosition.z;
 
@@ -37,7 +37,7 @@ public class Player : MonoBehaviour {
 
 	public void CustomUpdate () {
 		if (Input.GetMouseButton(0) || Input.GetMouseButton(1)) {
-			float yawDelta = 0.1f * Input.GetAxis("Mouse X") % (2 * Mathf.PI);
+			float yawDelta = 0.1f * Input.GetAxis("Mouse X") % (2f * Mathf.PI);
 			float pitchDelta = -0.1f * Input.GetAxis("Mouse Y");
 			pitch = Mathf.Clamp(pitch + pitchDelta % (2 * Mathf.PI), -Mathf.PI * 0.45f, Mathf.PI * 0.45f);
 			if (Input.GetMouseButton(1)) {
@@ -60,7 +60,7 @@ public class Player : MonoBehaviour {
 			rotation.eulerAngles = new Vector3(pitch * Mathf.Rad2Deg, yaw, 0);
 			pitchNode.transform.localRotation = rotation;
         } else {
-			Screen.showCursor = true;
+			Cursor.visible = true;
 			Screen.lockCursor = false;
 		}
 

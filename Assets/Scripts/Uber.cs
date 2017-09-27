@@ -194,7 +194,7 @@ public class Uber : MonoBehaviour {
 	void createMesh(int xBlock, int zBlock, int d) {
 		GameObject curBlock = new GameObject(string.Format("block{0}_{1}", xBlock, zBlock));
 		curBlock.AddComponent<MeshFilter>();
-		curBlock.AddComponent("MeshRenderer");
+		curBlock.AddComponent<MeshRenderer>();
 		
 		Mesh curMesh = curBlock.GetComponent<MeshFilter>().mesh;
 		
@@ -254,12 +254,12 @@ public class Uber : MonoBehaviour {
 			}
 		}
 		curMesh.triangles = triangles;
-		curBlock.renderer.sharedMaterial = grassMaterial;
-		curBlock.renderer.sharedMaterial.mainTextureScale = new Vector2(xBlockSize, zBlockSize);
+		curBlock.GetComponent<Renderer>().sharedMaterial = grassMaterial;
+		curBlock.GetComponent<Renderer>().sharedMaterial.mainTextureScale = new Vector2(xBlockSize, zBlockSize);
 		curMesh.normals = normals;
 		//curMesh.RecalculateNormals();
 		curMesh.RecalculateBounds();
-		curMesh.Optimize();
+		;
 		
 		// put the new mesh in its position
 		curBlock.transform.position = new Vector3(xBlock * xBlockSize, 0.0f, zBlock * zBlockSize);
@@ -515,12 +515,12 @@ public class Uber : MonoBehaviour {
 				case LoadState.CreateWaterMesh:
 					GameObject water = new GameObject();
 					water.AddComponent<MeshFilter>();
-					water.AddComponent("MeshRenderer");
+					water.AddComponent<MeshRenderer>();
 					
 					Mesh waterMesh = water.GetComponent<MeshFilter>().mesh;
 					
-					water.renderer.material = waterMaterial;
-					water.renderer.material.mainTextureScale = new Vector2(xSize, zSize);
+					water.GetComponent<Renderer>().material = waterMaterial;
+					water.GetComponent<Renderer>().material.mainTextureScale = new Vector2(xSize, zSize);
 					
 					Vector3[] vertices = new Vector3[4];
 					vertices[0] = new Vector3(0, 0, 0);

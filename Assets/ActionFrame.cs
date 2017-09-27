@@ -13,7 +13,7 @@ public class ActionFrame : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		uber = GameObject.FindGameObjectWithTag("Uber").GetComponent<Uber>();
-		image = transform.FindChild("Image").GetComponent<Image>();
+		image = transform.Find("Image").GetComponent<Image>();
 	}
 	
 	// Update is called once per frame

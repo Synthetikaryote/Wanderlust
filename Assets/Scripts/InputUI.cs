@@ -72,7 +72,7 @@ public class InputUI : MonoBehaviour {
 
 				// create a button frame
 				GameObject actionFrame = (GameObject)GameObject.Instantiate(actionFramePrefab);
-				actionFrame.transform.parent = transform;
+				actionFrame.transform.SetParent(transform, false);
 				RectTransform rect = ((RectTransform)actionFrame.transform);
 				float width = rect.sizeDelta.x * widthScale;
 				height = rect.sizeDelta.y;
@@ -137,7 +137,7 @@ public class InputUI : MonoBehaviour {
 		#if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
 		return (keyboardState[virtualKey] & 0x80) == 0x80;
 		#elif UNITY_STANDALONE_OSX || UNITY_EDITOR_OSX
-		
+		return false;
 		#endif
 	}
 }

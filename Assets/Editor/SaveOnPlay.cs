@@ -26,7 +26,7 @@ public class SaveOnPlay
 				Debug.Log( "Auto-Saving scene before entering Play mode: " + EditorApplication.currentScene );
 				
 				EditorApplication.SaveScene();
-				EditorApplication.SaveAssets();
+				AssetDatabase.SaveAssets();
 			}
 			
 		};
