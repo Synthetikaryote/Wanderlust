@@ -177,7 +177,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 544167611}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 7.6977997, y: 0, z: 0}
 --- !u!20 &11
 Camera:
   m_ObjectHideFlags: 0
@@ -195,7 +195,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.1
-  far clip plane: 1000
+  far clip plane: 100000
   field of view: 60
   orthographic: 0
   orthographic size: 100
@@ -295,8 +295,8 @@ MonoBehaviour:
   waterFactor: 0.35
   waterHeight: -2147483648
   exactWaterHeight: 0
-  player: {fileID: 0}
-  inputUI: {fileID: 0}
+  player: {fileID: 1859231655}
+  inputUI: {fileID: 1653992641}
 --- !u!196 &17
 NavMeshSettings:
   serializedVersion: 2
@@ -446,7 +446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1206455054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,7 +558,7 @@ RectTransform:
   m_AnchorMin: {x: 0.35, y: 0}
   m_AnchorMax: {x: 0.65, y: 0.4}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: -306.59998, y: -379.6}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1653992641
 MonoBehaviour:
@@ -566,7 +566,7 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1653992639}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c8675b633dab3444cb4ffd1c4aa346cf, type: 3}
   m_Name: 

@@ -4,14 +4,14 @@ using System.Collections;
 public class Player : MonoBehaviour {
 	float pitch = 0f;
 	public float speed = 8.0f;
-	float tallness = 1.7f;
+	float tallness = 1f;
 	bool jumping = false;
 	public Vector3 p = Vector3.zero;
 	public Vector3 v = Vector3.zero;
 	GameObject pitchNode;
 	float targetZoom = 0;
 	float cameraMinZoom = 0.7f;
-	float cameraMaxZoom = 300.0f;
+	float cameraMaxZoom = 1000f;
 	public GameObject model;
 	private Animation modelAnimation;
 	public float jumpVelocity = 5.0f;
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour {
 		targetZoom = -Camera.main.transform.localPosition.z;
 
 		modelAnimation = model.GetComponent<Animation>();
+		
 	}
 	
 	// Update is called once per frame
@@ -52,22 +53,23 @@ public class Player : MonoBehaviour {
 					pitchNode.transform.localRotation = tempQuat;
 				}
 				transform.Rotate(0, yawDelta * Mathf.Rad2Deg, 0);
-            } else if (Input.GetMouseButton(0)) {
+			} else if (Input.GetMouseButton(0)) {
 				pitchNode.transform.Rotate(0, yawDelta * Mathf.Rad2Deg, 0);
 			}
 			Quaternion rotation = new Quaternion();
 			float yaw = pitchNode.transform.localRotation.eulerAngles.y;
 			rotation.eulerAngles = new Vector3(pitch * Mathf.Rad2Deg, yaw, 0);
 			pitchNode.transform.localRotation = rotation;
-        } else {
-			Cursor.visible = true;
-			Screen.lockCursor = false;
+			uber.LockAndHideCursor();
+		}
+		else {
+			uber.UnlockAndShowCursor();
 		}
 
 		// zoom
 		float scrollDelta = Input.GetAxisRaw("Mouse ScrollWheel");
 		if (scrollDelta != 0) {
-			float zoomFactor = Mathf.Pow(100.0f, -scrollDelta);
+			float zoomFactor = Mathf.Pow(10000.0f, -scrollDelta);
 			targetZoom = Mathf.Clamp(targetZoom * zoomFactor, cameraMinZoom, cameraMaxZoom);
         }
         
